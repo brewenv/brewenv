@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ -z $BREWENV_HOME ]] || ! command -v brewenv >/dev/null 2>&1; then
+    BREWENV_HOME="${HOME}/Library/brewenv"
+
+    git clone https://github.com/brewenv/brewenv $BREWENV_HOME
+
+	cat <<- 'EOF' >> $HOME/.bashrc
+
+		export BREWENV_HOME="$HOME/Library/brewenv"
+		export PATH="$BREWENV_HOME:$PATH"
+
+		if command -v brewenv >/dev/null 2>&1; then
+		  eval "$(brewenv init -)"
+		fi
+		EOF
+fi
+
+
+
